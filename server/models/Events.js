@@ -5,6 +5,13 @@ const eventSchema = new mongoose.Schema({
   start: { type: Date, required: true },
   end: { type: Date, required: true },
   all_day: { type: Boolean, default: false },
+}, {
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+});
+
+eventSchema.virtual('id').get(function() {
+  return this._id.toHexString();
 });
 
 module.exports = mongoose.model("Event", eventSchema);
